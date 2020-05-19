@@ -2,35 +2,40 @@ const mongoose = require('mongoose');
 
 //create schema - represents how the post looks aka the data 
 
-const NewJobSchema = mongoose.Schema({
-    title: {
+const NewSitterProfileSchema = mongoose.Schema({
+    name: {
         type: String,
         required: true
     },
-    description:{
+    bio:{
         type: String,
         required: true
     },
-    date_posted: {
+    email:{
+        type:String,
+        required: true
+    },
+    phone_number:{
+        type:String
+    },
+    joined_on: {
         type: Date,
         default: Date.now
     },
-    number_of_kids: {
+    years_of_experience: {
         type: Number,
         default: 0
     },
-    salary: {
-        type: Number
+    education: {
+        type: String,
     },
     location: {
         type: String
     },
-    schedule:{
-        type:String
+    profile_picture:{
+        type: String,
+        required: true
     },
-    requirements: [{
-        type:String
-    }],
     sitter_skills:[{
         type:String
     }]
@@ -40,4 +45,4 @@ const NewJobSchema = mongoose.Schema({
 
 
 
-module.exports = mongoose.model('NewJob', NewJobSchema);
+module.exports = mongoose.model('NewSitterProfile', NewSitterProfileSchema);

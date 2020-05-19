@@ -10,8 +10,11 @@ require('dotenv/config');
 app.use(bodyParser.json());
 
 //import routes
-const adminRoutes = require('./routes/admin');
-app.use('/admin', adminRoutes);
+const jobsRoutes = require('./routes/jobs/jobs');
+app.use('/jobs', jobsRoutes);
+
+const sitterProfiles = require('./routes/profiles/sitter');
+app.use('/sitter', sitterProfiles);
 
 
 
