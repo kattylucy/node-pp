@@ -1,21 +1,35 @@
 const express = require('express');
 const router = express.Router();
-const Post = require('../models/Admin');
+const NewJob = require('../models/AdminJobs');
 
 
-///ROUTES
-router.get('/', (req, res) => {
-    res.send("we are on post");
+///ROUTES GET ADMIN
+router.get('/admin/jobs', (req, res) => {
+    const jobs = NewJob.find()
+    jobs.then(data => {
+        res.json(data);
+    })
+    .catch(err => {
+        res.json({message: err})
+    })
 });
 
 
-router.post('/', (req, res) => {
-    const post = new Post({
+
+///ROUTES POST ADMIN
+router.post('/newjob', (req, res) => {
+    console.log(req)
+    const newJob = new NewJob({
         title: req.body.title,
-        description: req.body.description
+        description: req.body.description,
+        location: req.body.location,
+        requirements: req.body.requirements,
+        salary: req.body.salary,
+        number_of_kids: req.body.number_of_kids,
+        sitter_skills: req.body.sitter_skills
     });
 
-    post.save()
+    newJob.save()
         .then(data => {
             res.json(data);
         })
@@ -23,6 +37,11 @@ router.post('/', (req, res) => {
             res.json({message: err})
         })
 });
+
+
+
+
+
 
 
 module.exports = router;

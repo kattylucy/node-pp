@@ -11,7 +11,7 @@ app.use(bodyParser.json());
 
 //import routes
 const adminRoutes = require('./routes/admin');
-app.use('/', adminRoutes);
+app.use('/admin', adminRoutes);
 
 
 
@@ -25,6 +25,13 @@ mongoose.connect( process.env.DB_CONNECTION,
     () => 
     console.log("connected to DB")
 );
+
+
+///404 error page
+
+app.use((req, res, next) => {
+    res.status(404).send("page not found")
+})
 
 
 ///listen to the server
