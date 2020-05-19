@@ -83,6 +83,20 @@ router.post('/editjob/:id', (req, res) => {
 
 
 
+//ROUTE DELETE JOB 
+router.delete('/remove/:id', (req, res) => {
+    const jobID = req.params.id;
+    NewJob.findByIdAndRemove(jobID)
+    .then(result => {
+        res.json({message:"job was deleted"})
+    })
+    .catch(err => {
+        res.json({message: err})
+    })
+});
+
+
+
 
 
 

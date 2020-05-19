@@ -4,10 +4,9 @@ const NewSitterProfile = require('../../models/AdminProfiles');
 
 
 ///get sitter profile
-
 router.get('/', (req, res) => {
-    const jobs = NewSitterProfile.find()
-    jobs.then(data => {
+    const sitter = NewSitterProfile.find()
+    sitter.then(data => {
         res.json(data);
     })
     .catch(err => {
@@ -25,6 +24,8 @@ router.get('/:id', (req, res) => {
         res.json({message: err})
     })
 });
+
+
 
 ///ROUTES POST SITTER PROFILE
 router.post('/newsitter', (req, res) => {
@@ -50,6 +51,55 @@ router.post('/newsitter', (req, res) => {
         })
 });
 
+
+
+//ROUTE EDIT SITTER PROFILE
+router.post('/editprofile/:id', (req, res) => {
+    const sitterID = req.params.id;
+
+    const newName = req.body.name;
+    const newBio= req.body.bio;
+    const newEmail = req.body.email;
+    const newLocation = req.body.location;
+    const newPhone_number = req.body.phone_number;
+    const newYears = req.body.years_of_experience;
+    const newEducation= req.body.education;
+    const new_sitter_skills= req.body.sitter_skills;
+    const new_profile_picture=req.body.profile_picture;
+
+    NewSitterProfile.findById(sitterID)
+    .then(item => {
+        item.name = newName;
+        item.bio = newBio;
+        item.location = newLocation;
+        item.email = newEmail;
+        item.phone_number = newPhone_number;
+        item.numberYears = newYears;
+        item.new_sitter_skills = new_sitter_skills;
+        item.newEducation = newEducation;
+        item.new_profile_picture = new_profile_picture;
+        return item.save();
+    }).then(result => {
+        result.json({message:"sitter profile updated"})
+    })
+    .catch(err => {
+        res.json({message: err})
+    })
+});
+
+
+//ROUTE DELETE SITTER PROFILE
+
+router.delete('/remove/:id', (req, res) => {
+    const id = req.params.id;
+    NewSitterProfile.findByIdAndRemove(id)
+    .then(result => {
+        result.json({message:"sitter profile was deleted"})
+    })
+    .catch(err => {
+        res.json({message: err})
+    })
+});
 
 
 
